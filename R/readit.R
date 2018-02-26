@@ -48,11 +48,16 @@ readit <- function(.data, tidyverse = TRUE, ...) {
         length(colnames(suppressMessages(suppressWarnings(y(.data))))))
       best_delim <- unlist(best_delim)
 
-      # Space-delimited may return many columns erroneously, so take
-      # the second-highest column count != 1
+      # Space-delimited may return many columns erroneously, so depending on how
+      # many non-single-col results are returned, use:
+      # 1) The second-highest-col-count option (or, the first-appearing, if a tie);
+      # 2) The ONLY option;
+      # 3) Throw an error
+
       best_delim <- best_delim[best_delim != 1]
+
       if (length(best_delim) > 1) {
-        best_delim <- names(best_delim[which(best_delim == min(best_delim))])
+        best_delim <- names(best_delim[which(best_delim == min(best_delim))])[1]
       } else if (length(best_delim) == 1) {
         best_delim <- names(best_delim)
       } else if (length(best_delim) == 0) {
