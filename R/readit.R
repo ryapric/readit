@@ -10,27 +10,27 @@
 #' or [haven](http://haven.tidyverse.org/) packages.
 #'
 #' @param .data File path to read data from.
-#' @param tidyverse Should `readit` use functions available in the tidyverse?
-#'   Defaults to
-#' @param sheet If known to be an Excel file (`.xls`/`.xlsx`), this indicates
-#'   the sheet to read. Defaults to the first sheet, and is passed on to
-#'   [read_excel].
-#' @param ... Additional arguments passed to tidyverse read functions.
+#' @param tidyverse Should `readit` use functions available in the tidyverse,
+#'   e.g. functions from `readr`, etc.? Defaults to `TRUE`.
+# @param sheet If known to be an Excel file (`.xls`/`.xlsx`), this indicates
+#   the sheet to read. Defaults to the first sheet, and is passed on to
+#   [read_excel].
+#' @param ... Additional arguments passed to tidyverse read functions, e.g.
+#'   `sheet`, `n_max`, etc.
 #'
 #' @examples
 #' readit(system.file("examples", "csv.csv", package = "readit"))
 #' readit(system.file("examples", "tab_sep.txt", package = "readit"))
 #' readit(system.file("examples", "semi_sep.txt", package = "readit"))
-#' readit(system.file("examples", "space_sep.txt", package = "readit"))
 #' readit(system.file("examples", "xlsx.xlsx", package = "readit"))
 #' readit(system.file("examples", "xls.xls", package = "readit"))
 #'
 #' @export
-readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
+readit <- function(.data, tidyverse = TRUE, ...) {
 
   dots <- list(...)
-
-  file_guessed <- "File guessed to be "
+  if ("delim" %in% names(dots))
+    stop("If you're going to specify a delimiter, just use a different function!")
 
   if (tidyverse) {
 
@@ -42,7 +42,7 @@ readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
         "tab-delimited" = function(x) read_tsv(x, ...),
         "semi-delimited" = function(x) read_csv2(x, ...),
         "pipe-delimited" = function(x) read_delim(x, delim = "|", ...),
-        "space-delimited" = function(x) read_delim(x, delim = " ", ...))
+        "space-delimited" = function(x) read_table2(x, ...))
 
       best_delim <- lapply(delims, function(y)
         length(colnames(suppressMessages(suppressWarnings(y(.data))))))
@@ -51,25 +51,23 @@ readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
       # Space-delimited may return many columns erroneously, so take
       # the second-highest column count != 1
       best_delim <- best_delim[best_delim != 1]
-      if (length(best_delim) == 1) {
-        best_delim <- names(best_delim)
-      } else if (length(best_delim) == 2) {
+      if (length(best_delim) > 1) {
         best_delim <- names(best_delim[which(best_delim == min(best_delim))])
-      } else {
+      } else if (length(best_delim) == 1) {
+        best_delim <- names(best_delim)
+      } else if (length(best_delim) == 0) {
         stop("Whoah, the delimiters are super weird in this file; I can't parse it!")
       }
-
-      stopifnot(length(best_delim) == 1)
 
       read_guess <- best_delim
       read_fun <- delims[[best_delim]]
 
     } else if (tolower(file_ext(.data)) == "csv") {
       read_guess <- "CSV"
-      read_fun <- function(x) read_csv(x)
+      read_fun <- function(x) read_csv(x, ...)
     } else if (grepl("xls", tolower(file_ext(.data)))) {
       read_guess <- "Excel (xls/xlsx)"
-      read_fun <- function(x) read_excel(x, sheet = sheet)
+      read_fun <- function(x) read_excel(x, ...)
     } else {
       stop("Unrecognized file extension, or file does not exist")
     }
@@ -78,7 +76,7 @@ readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
     stop("Currently, only tidyverse functions are supported.")
   }
 
-  message(paste0("File guessed to be ", read_guess))
   read_fun(.data)
+  message(paste0("File guessed to be ", read_guess))
 
 }

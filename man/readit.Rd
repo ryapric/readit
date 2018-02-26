@@ -4,19 +4,16 @@
 \alias{readit}
 \title{Read Files of Any Type}
 \usage{
-readit(.data, tidyverse = TRUE, sheet = 1, ...)
+readit(.data, tidyverse = TRUE, ...)
 }
 \arguments{
 \item{.data}{File path to read data from.}
 
-\item{tidyverse}{Should \code{readit} use functions available in the tidyverse?
-Defaults to}
+\item{tidyverse}{Should \code{readit} use functions available in the tidyverse,
+e.g. functions from \code{readr}, etc.? Defaults to \code{TRUE}.}
 
-\item{sheet}{If known to be an Excel file (\code{.xls}/\code{.xlsx}), this indicates
-the sheet to read. Defaults to the first sheet, and is passed on to
-\link{read_excel}.}
-
-\item{...}{Additional arguments passed to tidyverse read functions.}
+\item{...}{Additional arguments passed to tidyverse read functions, e.g.
+\code{sheet}, \code{n_max}, etc.}
 }
 \description{
 Given a file path, read the data into R, regardless of file type/extension.
@@ -32,7 +29,6 @@ or \href{http://haven.tidyverse.org/}{haven} packages.
 readit(system.file("examples", "csv.csv", package = "readit"))
 readit(system.file("examples", "tab_sep.txt", package = "readit"))
 readit(system.file("examples", "semi_sep.txt", package = "readit"))
-readit(system.file("examples", "space_sep.txt", package = "readit"))
 readit(system.file("examples", "xlsx.xlsx", package = "readit"))
 readit(system.file("examples", "xls.xls", package = "readit"))
 
