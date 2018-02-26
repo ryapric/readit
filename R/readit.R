@@ -30,7 +30,7 @@ readit <- function(.data, tidyverse = TRUE, ...) {
 
   dots <- list(...)
   if ("delim" %in% names(dots))
-    stop("If you're going to specify a delimiter, just use a different function!")
+    stop(red$bold$bgWhite("If you're going to specify a delimiter, just use a specialized function!"))
 
   if (tidyverse) {
 
@@ -61,7 +61,7 @@ readit <- function(.data, tidyverse = TRUE, ...) {
       } else if (length(best_delim) == 1) {
         best_delim <- names(best_delim)
       } else if (length(best_delim) == 0) {
-        stop("Whoah, the delimiters are super weird in this file; I can't parse it!")
+        stop(red$bold$bgWhite("Whoah, the delimiters are super weird in this file; I can't parse it!"))
       }
 
       read_guess <- best_delim
@@ -74,7 +74,7 @@ readit <- function(.data, tidyverse = TRUE, ...) {
       read_guess <- "Excel (xls/xlsx)"
       read_fun <- function(x) read_excel(x, ...)
     } else {
-      stop("Unrecognized file extension, or file does not exist")
+      stop(red$bold$bgWhite("Unrecognized file extension, or file does not exist"))
     }
 
   } else {
@@ -82,6 +82,7 @@ readit <- function(.data, tidyverse = TRUE, ...) {
   }
 
   read_fun(.data)
-  message(paste0("File guessed to be ", read_guess))
+  message(black$bgGreen(sprintf("File guessed to be %s (%s)",
+                                read_guess, deparse(substitute(.data)))))
 
 }
