@@ -30,28 +30,45 @@ readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
 
   dots <- list(...)
 
+  file_guessed <- "File guessed to be "
+
   if (tidyverse) {
 
     if (tolower(file_ext(.data)) == "txt") {
 
+      # Make sure then names are verbose, for sending console messages
       delims <- list(
-        comma_sep = function(x) read_csv(x, ...),
-        tab_sep = function(x) read_tsv(x, ...),
-        semi_sep = function(x) read_csv2(x, ...),
-        pipe_sep = function(x) read_delim(x, delim = "|", ...),
-        space_sep = function(x) read_delim(x, delim = " ", ...))
+        "comma-delimited" = function(x) read_csv(x, ...),
+        "tab-delimited" = function(x) read_tsv(x, ...),
+        "semi-delimited" = function(x) read_csv2(x, ...),
+        "pipe-delimited" = function(x) read_delim(x, delim = "|", ...),
+        "space-delimited" = function(x) read_delim(x, delim = " ", ...))
 
       best_delim <- lapply(delims, function(y)
         length(colnames(suppressMessages(suppressWarnings(y(.data))))))
       best_delim <- unlist(best_delim)
-      best_delim <- names(best_delim[which(best_delim == max(best_delim))])
+
+      # Space-delimited may return many columns erroneously, so take
+      # the second-highest column count != 1
+      best_delim <- best_delim[best_delim != 1]
+      if (length(best_delim) == 1) {
+        best_delim <- names(best_delim)
+      } else if (length(best_delim) == 2) {
+        best_delim <- names(best_delim[which(best_delim == min(best_delim))])
+      } else {
+        stop("Whoah, the delimiters are super weird in this file; I can't parse it!")
+      }
 
       stopifnot(length(best_delim) == 1)
+
+      read_guess <- best_delim
       read_fun <- delims[[best_delim]]
 
     } else if (tolower(file_ext(.data)) == "csv") {
+      read_guess <- "CSV"
       read_fun <- function(x) read_csv(x)
     } else if (grepl("xls", tolower(file_ext(.data)))) {
+      read_guess <- "Excel (xls/xlsx)"
       read_fun <- function(x) read_excel(x, sheet = sheet)
     } else {
       stop("Unrecognized file extension, or file does not exist")
@@ -61,6 +78,7 @@ readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
     stop("Currently, only tidyverse functions are supported.")
   }
 
+  message(paste0("File guessed to be ", read_guess))
   read_fun(.data)
 
 }
