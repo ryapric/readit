@@ -1,6 +1,5 @@
 *.log
 *.json
-*.txt
 *.swp
 .Rproj.user
 __README.*

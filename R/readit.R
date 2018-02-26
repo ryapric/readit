@@ -17,7 +17,8 @@
 #'   [read_excel].
 #' @param ... Additional arguments passed to tidyverse read functions.
 #'
-#' @examples readit(system.file("examples", "csv.csv", package = "readit"))
+#' @examples
+#' readit(system.file("examples", "csv.csv", package = "readit"))
 #' readit(system.file("examples", "tab_sep.txt", package = "readit"))
 #' readit(system.file("examples", "semi_sep.txt", package = "readit"))
 #' readit(system.file("examples", "space_sep.txt", package = "readit"))
@@ -56,6 +57,8 @@ readit <- function(.data, tidyverse = TRUE, sheet = 1, ...) {
       stop("Unrecognized file extension, or file does not exist")
     }
 
+  } else {
+    stop("Currently, only tidyverse functions are supported.")
   }
 
   read_fun(.data)
