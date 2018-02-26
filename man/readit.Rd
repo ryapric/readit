@@ -4,8 +4,36 @@
 \alias{readit}
 \title{Read Files of Any Type}
 \usage{
-readit(.data, tidyverse = TRUE, ...)
+readit(.data, tidyverse = TRUE, sheet = 1, ...)
+}
+\arguments{
+\item{.data}{File path to read data from.}
+
+\item{tidyverse}{Should \code{readit} use functions available in the tidyverse?
+Defaults to}
+
+\item{sheet}{If known to be an Excel file (\code{.xls}/\code{.xlsx}), this indicates
+the sheet to read. Defaults to the first sheet, and is passed on to
+\link{read_excel}.}
+
+\item{...}{Additional arguments passed to tidyverse read functions.}
 }
 \description{
-Read Files of Any Type
+Given a file path, read the data into R, regardless of file type/extension.
+\code{readit} is a thick wrapper around many of the
+\href{https://www.tidyverse.org/}{tidyverse} libraries, but can be forced to use
+base functions where possible. Note that the caveat is that the file
+\emph{\strong{needs}} to have an extension, as well as be of a relatively common type.
+"Common types" are any file type that can be handled by the
+\href{http://readr.tidyverse.org/}{readr}, \href{http://readxl.tidyverse.org/}{readxl},
+or \href{http://haven.tidyverse.org/}{haven} packages.
+}
+\examples{
+readit(system.file("examples", "csv.csv", package = "readit"))
+readit(system.file("examples", "tab_sep.txt", package = "readit"))
+readit(system.file("examples", "semi_sep.txt", package = "readit"))
+readit(system.file("examples", "space_sep.txt", package = "readit"))
+readit(system.file("examples", "xlsx.xlsx", package = "readit"))
+readit(system.file("examples", "xls.xls", package = "readit"))
+
 }

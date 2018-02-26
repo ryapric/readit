@@ -9,11 +9,13 @@ Description:
     Use four spaces when indenting paragraphs within the Description.
 Depends: R (>= 3.4.0)
 Imports:
+  haven,
   readr,
   readxl,
   tools
 Suggests:
   devtools,
+  dplyr,
   knitr,
   rmarkdown,
   testthat
