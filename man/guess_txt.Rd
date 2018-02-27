@@ -11,6 +11,9 @@ guess_txt(.data, ...)
 
 \item{...}{Other arguments passed from parent function}
 }
+\value{
+A reader function, and its label
+}
 \description{
 Since a \code{.txt} file is of ambiguous delimitation, this function is a helper
 for \code{\link[=readit]{readit()}} to guess the type, and return the appropriate reader.

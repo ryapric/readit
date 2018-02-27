@@ -5,6 +5,8 @@
 #'
 #' @param .data Data to guess/read
 #' @param ... Other arguments passed from parent function
+#'
+#' @return A reader function, and its label
 guess_txt <- function(.data, ...) {
 
   # Make sure then names are verbose, for sending console messages
@@ -42,6 +44,34 @@ guess_txt <- function(.data, ...) {
 
 
 
+#' Guess File Type to Pass to Haven Readers
+#'
+#' This function is a helper for [readit()] to guess the type of file that can
+#' be passed to an appropriate reader from [haven](http://haven.tidyverse.org/).
+#'
+#' @param .data Data to guess/read
+#' @param ... Other arguments passed from parent function
+#'
+#' @return A reader function, and its label
+guess_haven <- function(.data, ...) {
+  ext <- tolower(tools::file_ext(.data))
+  if (ext == "dta") {
+    .read_fun$read_guess <- "DTA (Stata)"
+    .read_fun$read_fun <- function(x) read_dta(x, ...)
+  } else if (grepl("sas7", ext)) {
+    .read_fun$read_guess <- ".sas7b*at (SAS)"
+    .read_fun$read_fun <- function(x) read_sas(x, ...)
+  } else if (grepl("sav", ext)) {
+    .read_fun$read_guess <- "SAV (SPSS)"
+    .read_fun$read_fun <- function(x) read_sav(x, ...)
+  } else if (grepl("por", ext)) {
+    .read_fun$read_guess <- "POR (SPSS)"
+    .read_fun$read_fun <- function(x) read_por(x, ...)
+  }
+}
+
+
+
 #' Read Files of Any Type
 #'
 #' Given a file path, read the data into R, regardless of file type/extension.
@@ -68,6 +98,7 @@ guess_txt <- function(.data, ...) {
 #' readit(system.file("examples", "semi_sep.txt", package = "readit"))
 #' readit(system.file("examples", "xlsx.xlsx", package = "readit"))
 #' readit(system.file("examples", "xls.xls", package = "readit"))
+#' readit(system.file("examples", "iris.sas7bdat", package = "readit"))
 #'
 #' @export
 readit <- function(.data, tidyverse = TRUE, ...) {
@@ -88,18 +119,8 @@ readit <- function(.data, tidyverse = TRUE, ...) {
     } else if (grepl("xls", ext)) {
       .read_fun$read_guess <- "xls/xlsx (Excel)"
       .read_fun$read_fun <- function(x) read_excel(x, ...)
-    } else if (ext == "dta") {
-      .read_fun$read_guess <- "DTA (Stata)"
-      .read_fun$read_fun <- function(x) read_dta(x, ...)
-    } else if (grepl("sas7", ext)) {
-      .read_fun$read_guess <- ".sas7b*at (SAS)"
-      .read_fun$read_fun <- function(x) read_sas(x, ...)
-    } else if (grepl("sav", ext)) {
-      .read_fun$read_guess <- "SAV (SPSS)"
-      .read_fun$read_fun <- function(x) read_sav(x, ...)
-    } else if (grepl("por", ext)) {
-      .read_fun$read_guess <- "POR (SPSS)"
-      .read_fun$read_fun <- function(x) read_por(x, ...)
+    } else if (grepl("^dta$|^sas7|^sav$|^por$", ext)) {
+      guess_haven(.data)
     } else {
       stop(red$bold("Unrecognized file extension, or file does not exist"))
     }
