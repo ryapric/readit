@@ -4,3 +4,4 @@
 ^.*\.json$
 README
 cran-comments.md
+revdep/*
