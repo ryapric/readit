@@ -41,10 +41,10 @@ readit <- function(.data, ..., tidyverse = TRUE) {
       guess_txt(.data)
     } else if (ext == "csv") {
       .read_fun$read_guess <- "CSV"
-      .read_fun$read_fun <- function(x) read_csv(x)
+      .read_fun$read_fun <- function(x) read_csv(x, ...)
     } else if (grepl("xls", ext)) {
       .read_fun$read_guess <- "xls/xlsx (Excel)"
-      .read_fun$read_fun <- function(x) read_excel(x)
+      .read_fun$read_fun <- function(x) read_excel(x, ...)
     } else if (grepl("^dta$|^sas7|^sav$|^por$", ext)) {
       guess_haven(.data)
     } else {

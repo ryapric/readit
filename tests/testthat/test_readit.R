@@ -68,4 +68,8 @@ test_that("Additional arguments are picked up by readit", {
                     n_max = 1)
   expect_equal(nrow(tab_sep), 1)
 
+  xlsx <- readit(system.file("examples", "xlsx.xlsx", package = package),
+                 sheet = 2)
+  expect_equal(names(xlsx), "sheet_test")
+
 })
