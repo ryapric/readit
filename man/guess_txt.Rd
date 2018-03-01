@@ -4,12 +4,10 @@
 \alias{guess_txt}
 \title{Guess ".txt" Delimiter}
 \usage{
-guess_txt(.data, ...)
+guess_txt(.data)
 }
 \arguments{
 \item{.data}{Data to guess/read}
-
-\item{...}{Other arguments passed from parent function}
 }
 \value{
 A reader function, and its label

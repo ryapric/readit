@@ -41,10 +41,10 @@ readit <- function(.data, ..., tidyverse = TRUE) {
       guess_txt(.data)
     } else if (ext == "csv") {
       .read_fun$read_guess <- "CSV"
-      .read_fun$read_fun <- function(x) read_csv(x, ...)
+      .read_fun$read_fun <- function(x) read_csv(x)
     } else if (grepl("xls", ext)) {
       .read_fun$read_guess <- "xls/xlsx (Excel)"
-      .read_fun$read_fun <- function(x) read_excel(x, ...)
+      .read_fun$read_fun <- function(x) read_excel(x)
     } else if (grepl("^dta$|^sas7|^sav$|^por$", ext)) {
       guess_haven(.data)
     } else {
@@ -57,7 +57,8 @@ readit <- function(.data, ..., tidyverse = TRUE) {
 
   message(green$bold(sprintf("File guessed to be %s (%s)",
                              .read_fun$read_guess, deparse(substitute(.data)))))
-  .read_fun$read_fun(.data, ...)
+  .read_fun$read_fun(.data)
+  # .read_fun$read_fun(.data, !!! enquos(...))
 
 }
 
@@ -69,18 +70,17 @@ readit <- function(.data, ..., tidyverse = TRUE) {
 #' for [readit()] to guess the type, and return the appropriate reader.
 #'
 #' @param .data Data to guess/read
-#' @param ... Other arguments passed from parent function
 #'
 #' @return A reader function, and its label
-guess_txt <- function(.data, ...) {
+guess_txt <- function(.data) {
 
   # Make sure then names are verbose, for sending console messages
   delims <- list(
-    "comma-delimited" = function(x) read_csv(x, dots),
-    "tab-delimited" = function(x) read_tsv(x, dots),
-    "semi-delimited" = function(x) read_csv2(x, dots),
-    "pipe-delimited" = function(x) read_delim(x, delim = "|", dots),
-    "space-delimited" = function(x) read_table2(x, dots))
+    "comma-delimited" = function(x) read_csv(x),
+    "tab-delimited" = function(x) read_tsv(x),
+    "semi-delimited" = function(x) read_csv2(x),
+    "pipe-delimited" = function(x) read_delim(x, delim = "|"),
+    "space-delimited" = function(x) read_table2(x))
 
   n_max <- 100
   delims_test <- list(

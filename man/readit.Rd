@@ -4,16 +4,16 @@
 \alias{readit}
 \title{Read Files of Any Type}
 \usage{
-readit(.data, tidyverse = TRUE, ...)
+readit(.data, ..., tidyverse = TRUE)
 }
 \arguments{
 \item{.data}{File path to read data from.}
 
-\item{tidyverse}{Should \code{readit} use functions available in the tidyverse,
-e.g. functions from \code{readr}, etc.? Defaults to \code{TRUE}.}
-
 \item{...}{Additional arguments passed to tidyverse read functions, e.g.
 \code{sheet}, \code{n_max}, etc.}
+
+\item{tidyverse}{Should \code{readit} use functions available in the tidyverse,
+e.g. functions from \code{readr}, etc.? Defaults to \code{TRUE}.}
 }
 \description{
 Given a file path, read the data into R, regardless of file type/extension.

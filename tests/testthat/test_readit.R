@@ -59,3 +59,13 @@ test_that("Identical other files, different formats", {
   }
 
 })
+
+
+
+test_that("Additional arguments are picked up by readit", {
+
+  tab_sep <- readit(system.file("examples", "tab_sep.txt", package = package),
+                    n_max = 1)
+  expect_equal(nrow(tab_sep), 1)
+
+})
