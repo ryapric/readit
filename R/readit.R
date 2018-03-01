@@ -10,13 +10,10 @@
 #' or [haven](http://haven.tidyverse.org/) packages.
 #'
 #' @param .data File path to read data from.
-#' @param tidyverse Should `readit` use functions available in the tidyverse,
-#'   e.g. functions from `readr`, etc.? Defaults to `TRUE`.
-# @param sheet If known to be an Excel file (`.xls`/`.xlsx`), this indicates
-#   the sheet to read. Defaults to the first sheet, and is passed on to
-#   [read_excel].
 #' @param ... Additional arguments passed to tidyverse read functions, e.g.
 #'   `sheet`, `n_max`, etc.
+#' @param tidyverse Should `readit` use functions available in the tidyverse,
+#'   e.g. functions from `readr`, etc.? Defaults to `TRUE`.
 #'
 #' @examples
 #' readit(system.file("examples", "csv.csv", package = "readit"))
@@ -41,10 +38,10 @@ readit <- function(.data, ..., tidyverse = TRUE) {
       guess_txt(.data)
     } else if (ext == "csv") {
       .read_fun$read_guess <- "CSV"
-      .read_fun$read_fun <- function(x) read_csv(x, ...)
+      .read_fun$read_fun <- function(x, ...) read_csv(x, ...)
     } else if (grepl("xls", ext)) {
       .read_fun$read_guess <- "xls/xlsx (Excel)"
-      .read_fun$read_fun <- function(x) read_excel(x, ...)
+      .read_fun$read_fun <- function(x, ...) read_excel(x, ...)
     } else if (grepl("^dta$|^sas7|^sav$|^por$", ext)) {
       guess_haven(.data)
     } else {
@@ -57,8 +54,7 @@ readit <- function(.data, ..., tidyverse = TRUE) {
 
   message(green$bold(sprintf("File guessed to be %s (%s)",
                              .read_fun$read_guess, deparse(substitute(.data)))))
-  .read_fun$read_fun(.data)
-  # .read_fun$read_fun(.data, !!! enquos(...))
+  .read_fun$read_fun(.data, ...)
 
 }
 
@@ -76,11 +72,11 @@ guess_txt <- function(.data) {
 
   # Make sure then names are verbose, for sending console messages
   delims <- list(
-    "comma-delimited" = function(x) read_csv(x),
-    "tab-delimited" = function(x) read_tsv(x),
-    "semi-delimited" = function(x) read_csv2(x),
-    "pipe-delimited" = function(x) read_delim(x, delim = "|"),
-    "space-delimited" = function(x) read_table2(x))
+    "comma-delimited" = function(x, ...) read_csv(x, ...),
+    "tab-delimited" = function(x, ...) read_tsv(x, ...),
+    "semi-delimited" = function(x, ...) read_csv2(x, ...),
+    "pipe-delimited" = function(x, ...) read_delim(x, delim = "|", ...),
+    "space-delimited" = function(x, ...) read_table2(x, ...))
 
   n_max <- 100
   delims_test <- list(
@@ -123,22 +119,21 @@ guess_txt <- function(.data) {
 #' be passed to an appropriate reader from [haven](http://haven.tidyverse.org/).
 #'
 #' @param .data Data to guess/read
-#' @param ... Other arguments passed from parent function
 #'
 #' @return A reader function, and its label
-guess_haven <- function(.data, ...) {
+guess_haven <- function(.data) {
   ext <- tolower(tools::file_ext(.data))
   if (ext == "dta") {
     .read_fun$read_guess <- "DTA (Stata)"
-    .read_fun$read_fun <- function(x) read_dta(x, ...)
+    .read_fun$read_fun <- function(x, ...) read_dta(x, ...)
   } else if (grepl("sas7", ext)) {
     .read_fun$read_guess <- ".sas7b*at (SAS)"
-    .read_fun$read_fun <- function(x) read_sas(x, ...)
+    .read_fun$read_fun <- function(x, ...) read_sas(x, ...)
   } else if (grepl("sav", ext)) {
     .read_fun$read_guess <- "SAV (SPSS)"
-    .read_fun$read_fun <- function(x) read_sav(x, ...)
+    .read_fun$read_fun <- function(x, ...) read_sav(x, ...)
   } else if (grepl("por", ext)) {
     .read_fun$read_guess <- "POR (SPSS)"
-    .read_fun$read_fun <- function(x) read_por(x, ...)
+    .read_fun$read_fun <- function(x, ...) read_por(x, ...)
   }
 }

@@ -2,9 +2,9 @@
 
 export(readit)
 import(haven)
+import(jsonlite)
 import(readr)
 import(readxl)
-import(rlang)
 importFrom(crayon,bold)
 importFrom(crayon,green)
 importFrom(crayon,red)

@@ -72,4 +72,8 @@ test_that("Additional arguments are picked up by readit", {
                  sheet = 2)
   expect_equal(names(xlsx), "sheet_test")
 
+  sas <- readit(system.file("examples", "iris.sas7bdat", package = package),
+                cols_only = c("Sepal_Length", "Sepal_Width"))
+  expect_equal(ncol(sas), 2)
+
 })

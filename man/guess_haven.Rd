@@ -4,12 +4,10 @@
 \alias{guess_haven}
 \title{Guess File Type to Pass to Haven Readers}
 \usage{
-guess_haven(.data, ...)
+guess_haven(.data)
 }
 \arguments{
 \item{.data}{Data to guess/read}
-
-\item{...}{Other arguments passed from parent function}
 }
 \value{
 A reader function, and its label

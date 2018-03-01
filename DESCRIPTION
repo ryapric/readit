@@ -3,8 +3,8 @@ Title: Effortlessly Read Any Rectangular Data
 Description:
     'readit' provides just one primary function, readit(), which uses a set of
     reasonable heuristics to apply the appropriate reader function to the
-    given file path. As long as the file has an extension, and the data is
-    rectangular, `readit` can read it.
+    given file path. As long as the data file has an extension, and the data is
+    (or can be coerced to be) rectangular, `readit` can probably read it.
 Version: 0.1.0
 Date: 2018-02-26
 Authors@R:
@@ -14,6 +14,7 @@ Depends: R (>= 3.4.0)
 Imports:
   crayon (>= 1.3.4),
   haven (>= 1.1.1),
+  jsonlite (>= 1.5),
   readr (>= 1.1.1),
   readxl (>= 1.0.0),
   tools (>= 3.4.3)
