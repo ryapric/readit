@@ -4,8 +4,8 @@ Description:
     'readit' provides just one primary function, readit(), which uses a set of
     reasonable heuristics to apply the appropriate reader function to the
     given file path. As long as the data file has an extension, and the data is
-    (or can be coerced to be) rectangular, `readit` can probably read it.
-Version: 0.1.0
+    (or can be coerced to be) rectangular, 'readit' can probably read it.
+Version: 1.0.0
 Date: 2018-02-26
 Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("aut", "cre")))
@@ -13,7 +13,6 @@ License: MIT + file LICENSE
 Depends: R (>= 3.4.0)
 Imports:
   crayon (>= 1.3.4),
-  foreign (>= 0.8.69),
   haven (>= 1.1.1),
   jsonlite (>= 1.5),
   readr (>= 1.1.1),

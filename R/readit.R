@@ -7,7 +7,7 @@
 #' _**needs**_ to have an extension, as well as be of a relatively common type.
 #' "Common types" are any file type that can be handled by the
 #' [readr](https://cran.r-project.org/package=readr), [readxl](https://cran.r-project.org/package=readxl),
-#' [haven](https://cran.r-project.org/package=haven), or [foreign](https://cran.r-project.org/package=foreign) packages.
+#' or [haven](https://cran.r-project.org/package=haven) packages.
 #'
 #' @param .data File path to read data from.
 #' @param ... Additional arguments passed to tidyverse read functions, e.g.
@@ -128,33 +128,6 @@ guess_haven <- function(.data) {
   ext <- tolower(tools::file_ext(.data))
   if (ext == "dta") {
     .read_fun$read_guess <- "DTA (Stata)"
-    .read_fun$read_fun <- function(x, ...) read_dta(x, ...)
-  } else if (grepl("sas7", ext)) {
-    .read_fun$read_guess <- ".sas7b*at (SAS)"
-    .read_fun$read_fun <- function(x, ...) read_sas(x, ...)
-  } else if (grepl("sav", ext)) {
-    .read_fun$read_guess <- "SAV (SPSS)"
-    .read_fun$read_fun <- function(x, ...) read_sav(x, ...)
-  } else if (grepl("por", ext)) {
-    .read_fun$read_guess <- "POR (SPSS)"
-    .read_fun$read_fun <- function(x, ...) read_por(x, ...)
-  }
-}
-
-
-
-#' Guess File Type to Pass to `foreign` Readers
-#'
-#' This function is a helper for [readit()] to guess the type of file that can
-#' be passed to an appropriate reader from [foreign](https://cran.r-project.org/package=foreign).
-#'
-#' @param .data Data to guess/read
-#'
-#' @return A reader function, and its label
-guess_foreign <- function(.data) {
-  ext <- tolower(tools::file_ext(.data))
-  if (ext == "dta") {
-    .read_fun$read_guess <- "DTA ("
     .read_fun$read_fun <- function(x, ...) read_dta(x, ...)
   } else if (grepl("sas7", ext)) {
     .read_fun$read_guess <- ".sas7b*at (SAS)"

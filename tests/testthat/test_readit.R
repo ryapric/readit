@@ -42,13 +42,14 @@ test_that("Identical files, different formats", {
 
 
 
-test_that("Identical other files, different formats", {
+test_that("Identical *other* files, different formats", {
 
   sas <- readit(system.file("examples", "iris.sas7bdat", package = package))
   stata <- readit(system.file("examples", "iris.dta", package = package))
   spss <- readit(system.file("examples", "iris.sav", package = package))
+  json <- readit(system.file("examples", "iris.json", package = package))
 
-  others_list <- list(sas, stata, spss)
+  others_list <- list(sas, stata, spss, json)
 
   for (f in others_list) {
     # Files aren't identical, because of labelling, etc., so test the basics

@@ -1,7 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.*\.log$
-^.*\.json$
 README
 cran-comments.md
 revdep/*
