@@ -3,7 +3,7 @@ Effortlessly Read Any Rectangular Data Into R: Just readit!
 Ryan Price <ryapric@gmail.com>
 2018-03-01
 
-`readit()` may be the only data-read function you ever need; by wrapping other popular reader packages, like [readr](https://cran.r-project.org/package=readr), [readxl](https://cran.r-project.org/package=readxl), [haven](https://cran.r-project.org/package=haven), [jsonlite](https://cran.r-project.org/package=jsonlite), `readit` provides one self-titled function to read almost anything that isn't formatted like hot garbage. If you have faith that the underlying data is of modest quality, and don't care how it's delimited, or what it's file extension suggests, then `readit` is for you.
+`readit()` may be the only data-read function you ever need; by wrapping other popular reader packages, like [readr](https://cran.r-project.org/package=readr), [readxl](https://cran.r-project.org/package=readxl), [haven](https://cran.r-project.org/package=haven), [jsonlite](https://cran.r-project.org/package=jsonlite), `readit` provides one self-titled function to read almost anything that isn't formatted like hot garbage. If you have faith that the underlying data is of modest quality, and don't care how it's delimited, or what its file extension suggests, then `readit` is for you.
 
 This package was inspired by a handover at work; I took over as Maintainer for a package that dealt with a lot of disparate file extensions, and quickly became frustrated with trying to keep track of which filename was delimited in what way. "Why can't I just... ***f@!\#ing read it?!***" And lo, `readit` was born!
 
