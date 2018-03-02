@@ -6,7 +6,7 @@ Description:
     given file path. As long as the data file has an extension, and the data is
     (or can be coerced to be) rectangular, 'readit' can probably read it.
 Version: 1.0.0
-Date: 2018-02-26
+Date: 2018-03-01
 Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("aut", "cre")))
 License: MIT + file LICENSE
