@@ -1,3 +1,8 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Changed the 'Desciption' field to not start with the package name.
+
 ## Test environments
 * Local Windows 10 install, R 3.4.3
 * Local Lubuntu 17.10 (VirtualBox), R 3.4.3

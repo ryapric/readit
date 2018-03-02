@@ -1,7 +1,7 @@
 Effortlessly Read Any Rectangular Data Into R: Just readit!
 ================
 Ryan Price <ryapric@gmail.com>
-2018-03-01
+2018-03-02
 
 `readit()` may be the only data-read function you ever need; by wrapping other popular reader packages, like [readr](https://cran.r-project.org/package=readr), [readxl](https://cran.r-project.org/package=readxl), [haven](https://cran.r-project.org/package=haven), [jsonlite](https://cran.r-project.org/package=jsonlite), `readit` provides one self-titled function to read almost anything that isn't formatted like hot garbage. If you have faith that the underlying data is of modest quality, and don't care how it's delimited, or what its file extension suggests, then `readit` is for you.
 
