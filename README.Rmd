@@ -18,7 +18,7 @@ popular reader packages, like
 [jsonlite](https://cran.r-project.org/package=jsonlite), `readit` provides one
 self-titled function to read almost anything that isn't formatted like hot
 garbage. If you have faith that the underlying data is of modest quality, and
-don't care how it's delimited, or what it's file extension suggests, then
+don't care how it's delimited, or what its file extension suggests, then
 `readit` is for you.
 
 This package was inspired by a handover at work; I took over as Maintainer for
