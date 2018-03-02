@@ -22,8 +22,8 @@ Given a file path, read the data into R, regardless of file type/extension.
 base functions where possible. Note that the caveat is that the file
 \emph{\strong{needs}} to have an extension, as well as be of a relatively common type.
 "Common types" are any file type that can be handled by the
-\href{http://readr.tidyverse.org/}{readr}, \href{http://readxl.tidyverse.org/}{readxl},
-or \href{http://haven.tidyverse.org/}{haven} packages.
+\href{https://cran.r-project.org/package=readr}{readr}, \href{https://cran.r-project.org/package=readxl}{readxl},
+\href{https://cran.r-project.org/package=haven}{haven}, or \href{https://cran.r-project.org/package=foreign}{foreign} packages.
 }
 \examples{
 readit(system.file("examples", "csv.csv", package = "readit"))
