@@ -1,10 +1,10 @@
 Package: readit
 Title: Effortlessly Read Any Rectangular Data
 Description:
-    Providing just one primary function, `readit` uses a set of reasonable
+    Providing just one primary function, 'readit' uses a set of reasonable
     heuristics to apply the appropriate reader function to the given file path.
     As long as the data file has an extension, and the data is (or can be
-    coerced to be) rectangular, 'readit' can probably read it.
+    coerced to be) rectangular, readit() can probably read it.
 Version: 1.0.0
 Date: 2018-03-01
 Authors@R:

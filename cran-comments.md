@@ -1,6 +1,7 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
+* Added '()' at the end of function names in DESCRIPTION.
 * Changed the 'Desciption' field to not start with the package name.
 
 ## Test environments
