@@ -4,3 +4,5 @@
 README
 cran-comments.md
 revdep/*
+Dockerfile
+Makefile
