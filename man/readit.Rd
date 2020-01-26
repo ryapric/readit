@@ -16,14 +16,20 @@ readit(.data, ..., tidyverse = TRUE)
 e.g. functions from \code{readr}, etc.? Defaults to \code{TRUE}.}
 }
 \description{
+NOTE: the \code{readit} package is retired, and this function throws deprecation
+warnings when called. Please use the
+\href{https://cran.r-project.org/package=rio}{rio::import()} function instead.
+}
+\details{
 Given a file path, read the data into R, regardless of file type/extension.
 \code{readit} is a thick wrapper around many of the
 \href{https://www.tidyverse.org/}{tidyverse} libraries, but can be forced to use
 base functions where possible. Note that the caveat is that the file
 \emph{\strong{needs}} to have an extension, as well as be of a relatively common type.
 "Common types" are any file type that can be handled by the
-\href{https://cran.r-project.org/package=readr}{readr}, \href{https://cran.r-project.org/package=readxl}{readxl},
-or \href{https://cran.r-project.org/package=haven}{haven} packages.
+\href{https://cran.r-project.org/package=readr}{readr},
+\href{https://cran.r-project.org/package=readxl}{readxl}, or
+\href{https://cran.r-project.org/package=haven}{haven} packages.
 }
 \examples{
 readit(system.file("examples", "csv.csv", package = "readit"))

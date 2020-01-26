@@ -2,6 +2,8 @@ package <- packageName()
 
 context("readit reads reliably")
 
+
+
 test_that("Identical .txts, different delimiters", {
 
   comma_sep_quote <- readit(system.file("examples", "comma_sep_quote.txt", package = package))
@@ -73,8 +75,15 @@ test_that("Additional arguments are picked up by readit", {
                  sheet = 2)
   expect_equal(names(xlsx), "sheet_test")
 
-  sas <- readit(system.file("examples", "iris.sas7bdat", package = package),
-                cols_only = c("Sepal_Length", "Sepal_Width"))
-  expect_equal(ncol(sas), 2)
+})
 
+
+
+context("readit is deprecated")
+
+test_that("readit throws a deprecated message/condition", {
+  expect_condition(
+    readit(system.file("examples", "comma_sep_quote.txt", package = package)),
+    "deprecated"
+  )
 })

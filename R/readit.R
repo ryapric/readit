@@ -1,13 +1,18 @@
 #' Read Files of Any Type
 #'
+#' NOTE: the `readit` package is retired, and this function throws deprecation
+#' warnings when called. Please use the
+#' [rio::import()](https://cran.r-project.org/package=rio) function instead.
+#'
 #' Given a file path, read the data into R, regardless of file type/extension.
 #' `readit` is a thick wrapper around many of the
 #' [tidyverse](https://www.tidyverse.org/) libraries, but can be forced to use
 #' base functions where possible. Note that the caveat is that the file
 #' _**needs**_ to have an extension, as well as be of a relatively common type.
 #' "Common types" are any file type that can be handled by the
-#' [readr](https://cran.r-project.org/package=readr), [readxl](https://cran.r-project.org/package=readxl),
-#' or [haven](https://cran.r-project.org/package=haven) packages.
+#' [readr](https://cran.r-project.org/package=readr),
+#' [readxl](https://cran.r-project.org/package=readxl), or
+#' [haven](https://cran.r-project.org/package=haven) packages.
 #'
 #' @param .data File path to read data from.
 #' @param ... Additional arguments passed to tidyverse read functions, e.g.
@@ -25,6 +30,8 @@
 #'
 #' @export
 readit <- function(.data, ..., tidyverse = TRUE) {
+
+  .Deprecated("rio::import()")
 
   dots <- list(...)
   if ("delim" %in% names(dots))

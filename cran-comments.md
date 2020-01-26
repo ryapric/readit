@@ -1,24 +1,21 @@
-## Resubmission
-This is a resubmission. In this version I have:
-
-* Added '()' at the end of function names in DESCRIPTION.
-* Changed the 'Desciption' field to not start with the package name.
-
 ## Test environments
-* Local Windows 10 install, R 3.4.3
-* Local Lubuntu 17.10 (VirtualBox), R 3.4.3
+* Manjaro Linux (release)
+* Debian Stretch (release)
+* Debian Stretch (devel)
+* win-builder (release)
 * win-builder (devel)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs.
+There were no ERRORs, NOTEs
 
-There was 1 NOTE:
+There was 1 WARNING:
 
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Ryan Price <ryapric@gmail.com>'
+* Warning: 'readit' is deprecated.
 
-New submission
+This is from the deprecation warnings in the `examples` section of the
+documentation. I can remove these by either wrapping the examples in
+`suppressWarnings()`, or removing them entirely, since this release indicates
+the retirement of the package overall.
 
 ## Downstream dependencies
-There are no downstream/reverse dependencies for this package, as it is an
-initial release.
+There are no downstream/reverse dependencies for this package.
