@@ -6,3 +6,5 @@ cran-comments.md
 revdep/*
 Dockerfile
 Makefile
+\.Rcheck.*
+.*\.tar\.gz
